@@ -10,7 +10,12 @@
       "ProjectGuid": "18b38aa3-bf75-4712-81af-1856510233e3",
       "DisplayName": "GeekBrains.SD.Lesson5.Entity",
       "ColorIndex": 1
+    },
+    "9d97d858-8e5c-4604-8a76-1ffe593aeef7": {
+      "ProjectGuid": "9d97d858-8e5c-4604-8a76-1ffe593aeef7",
+      "DisplayName": "GeekBrains.SD.Lesson5.DAL",
+      "ColorIndex": 2
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 3
 }
