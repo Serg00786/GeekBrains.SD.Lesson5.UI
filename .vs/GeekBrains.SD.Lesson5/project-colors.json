@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "5ea2fd55-a316-4677-a14b-4950379f415f": {
+      "ProjectGuid": "5ea2fd55-a316-4677-a14b-4950379f415f",
+      "DisplayName": "GeekBrains.SD.Lesson5.UI",
+      "ColorIndex": 0
+    },
+    "18b38aa3-bf75-4712-81af-1856510233e3": {
+      "ProjectGuid": "18b38aa3-bf75-4712-81af-1856510233e3",
+      "DisplayName": "GeekBrains.SD.Lesson5.Entity",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}
