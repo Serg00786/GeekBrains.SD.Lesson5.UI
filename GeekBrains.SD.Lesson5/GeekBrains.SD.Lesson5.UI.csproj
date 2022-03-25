@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GeekBrains.SD.Lesson5.BL\GeekBrains.SD.Lesson5.BL.csproj" />
     <ProjectReference Include="..\GeekBrains.SD.Lesson5.DAL\GeekBrains.SD.Lesson5.DAL.csproj" />
     <ProjectReference Include="..\GeekBrains.SD.Lesson5.Entity\GeekBrains.SD.Lesson5.Entity.csproj" />
   </ItemGroup>

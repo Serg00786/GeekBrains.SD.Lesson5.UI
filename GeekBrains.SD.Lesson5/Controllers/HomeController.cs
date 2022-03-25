@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using Unity;
 using GeekBrains.SD.Lesson5.DAL.UnitofWork.Interfaces;
 using GeekBrains.SD.Lesson5.DAL.UnitofWork.Service;
+using GeekBrains.SD.Lesson5.BL.ChainOfResponsibility.Services;
+using GeekBrains.SD.Lesson5.BL.ChainOfResponsibility.Abstract;
 
 namespace GeekBrains.SD.Lesson5.Controllers
 {
@@ -26,22 +28,21 @@ namespace GeekBrains.SD.Lesson5.Controllers
         public IActionResult Index()
         {
             IUnityContainer container = new UnityContainer();
-            container.RegisterType<IUnitOfWork, UnitOfWork>()
-            .RegisterType<ITransactionUnitOfWork, TransactionUnitOfWork>();
-            int id = 0;
-            ITransactionUnitOfWork writeUnitOfWork = container.Resolve<ITransactionUnitOfWork>();
+            container.RegisterType<IUnitOfWork, UnitOfWork>().RegisterType<AbstractHandler, CreateFirstObject>();
+           // int id = 0;
+            //ITransactionUnitOfWork writeUnitOfWork = container.Resolve<ITransactionUnitOfWork>();
          
-                var student = writeUnitOfWork.CreateNew<Students>();
-                student.FirstName = "Aleks";
-                student.LastName = "Sergeev";
-                student.Age = 27;
-                writeUnitOfWork.Add(student);
-                writeUnitOfWork.Commit();
-                id = student.Id;
+            //    var student = writeUnitOfWork.CreateNew<Students>();
+            //    student.FirstName = "Aleks";
+            //    student.LastName = "Sergeev";
+            //    student.Age = 27;
+            //    writeUnitOfWork.Add(student);
+            //    writeUnitOfWork.Commit();
+                //id = student.Id;
             
             using (var unitOfWork = container.Resolve<IUnitOfWork>())
             {
-                var sales = unitOfWork.GetStudentRepository().GetStudents(id);
+                var sales = unitOfWork.GetStudentRepository().GetAll();
 
             }
 
