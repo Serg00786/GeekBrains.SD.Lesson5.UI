@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GeekBrains.SD.Lesson5.DAL.UnitofWork.Interfaces
 {
-    internal interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         IStudentRepository GetStudentRepository();
         List<T> ExecuteCustomQuery<T>(string command, params KeyValuePair<string, object>[] parameters);

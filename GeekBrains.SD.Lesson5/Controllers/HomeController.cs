@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Unity;
-using GeekBrains.SD.Lesson5.DAL.Interfaces;
+using GeekBrains.SD.Lesson5.DAL.UnitofWork.Interfaces;
 using GeekBrains.SD.Lesson5.DAL.UnitofWork.Service;
 
 namespace GeekBrains.SD.Lesson5.Controllers
@@ -25,38 +25,31 @@ namespace GeekBrains.SD.Lesson5.Controllers
 
         public IActionResult Index()
         {
-            using (var context = new StudentContext())
-            {
-                var student = new Students();
+            IUnityContainer container = new UnityContainer();
+            container.RegisterType<IUnitOfWork, UnitOfWork>()
+            .RegisterType<ITransactionUnitOfWork, TransactionUnitOfWork>();
+            int id = 0;
+            ITransactionUnitOfWork writeUnitOfWork = container.Resolve<ITransactionUnitOfWork>();
+         
+                var student = writeUnitOfWork.CreateNew<Students>();
                 student.FirstName = "Aleks";
+                student.LastName = "Sergeev";
                 student.Age = 27;
-                context.Student.Add(student);
-                context.SaveChanges();
+                writeUnitOfWork.Add(student);
+                writeUnitOfWork.Commit();
+                id = student.Id;
+            
+            using (var unitOfWork = container.Resolve<IUnitOfWork>())
+            {
+                var sales = unitOfWork.GetStudentRepository().GetStudents(id);
 
-
-                IUnityContainer container = new UnityContainer();
-                container.RegisterType<IUnitOfWork, UnitOfWork>()
-                .RegisterType<ITransactionUnitOfWork, TransactionUnitOfWork>();
-                using (var unitOfWork = container.Resolve<IUnitOfWork>())
-                {
-                    var products = unitOfWork.GetProductRepository().GetAll().ToList();
-                    foreach (var prod in products)
-
-                {
-                        Console.WriteLine("Name: " + prod.Name + " ,Price: " + prod.Price);
-                    }
-                    var customer = unitOfWork.GetCustomerRepository().GetAll().First();
-                    var sales = unitOfWork.GetSaleRepository().GetAllByCustomerId(customer.Id);
-                    foreach (var sale in sales)
-                    {
-                        Console.WriteLine("Customer name: {0}, TotalCost: {1}",
-                        sale.Customer.FirstName, sale.TotalCost);
-                    }
-                }
+            }
 
 
             return View();
         }
+    
+
 
         public IActionResult Privacy()
         {

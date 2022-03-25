@@ -15,7 +15,8 @@ namespace GeekBrains.SD.Lesson5.DAL
 
         static StudentContext()
         {
-            Database.SetInitializer<StudentContext>(new DropCreateDatabaseAlways<StudentContext>());
+            Database.SetInitializer<StudentContext>(new CreateDatabaseIfNotExists<StudentContext>());
+
         }
 
         public ObjectResult<T> ExecuteStoreQuery<T>(string commandText, params
