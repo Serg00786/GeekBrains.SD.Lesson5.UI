@@ -9,7 +9,7 @@ using Unity;
 
 namespace GeekBrains.SD.Lesson5.BL.ChainOfResponsibility.Services
 {
-    internal class CreateSecondObject : AbstractHandler
+    public class CreateSecondObject : AbstractHandler
     {
         public override void Handle()
         {
@@ -19,8 +19,8 @@ namespace GeekBrains.SD.Lesson5.BL.ChainOfResponsibility.Services
             ITransactionUnitOfWork writeUnitOfWork = container.Resolve<ITransactionUnitOfWork>();
 
             var student = writeUnitOfWork.CreateNew<Students>();
-            student.FirstName = "Aleks";
-            student.LastName = "Alekseev";
+            student.FirstName = "Kaks";
+            student.LastName = "Lee";
             student.Age = 33;
             writeUnitOfWork.Add(student);
             writeUnitOfWork.Commit();

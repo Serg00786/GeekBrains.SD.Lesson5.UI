@@ -13,6 +13,9 @@ using GeekBrains.SD.Lesson5.DAL.UnitofWork.Interfaces;
 using GeekBrains.SD.Lesson5.DAL.UnitofWork.Service;
 using GeekBrains.SD.Lesson5.BL.ChainOfResponsibility.Services;
 using GeekBrains.SD.Lesson5.BL.ChainOfResponsibility.Abstract;
+using GeekBrains.SD.Lesson5.BL.Strategy.Interfaces;
+using GeekBrains.SD.Lesson5.BL.Strategy;
+using GeekBrains.SD.Lesson5.BL.ChainOfResponsibility;
 
 namespace GeekBrains.SD.Lesson5.Controllers
 {
@@ -27,22 +30,20 @@ namespace GeekBrains.SD.Lesson5.Controllers
 
         public IActionResult Index()
         {
+            IDataType dataType = new ConstantDataType();
+            IStrategyMain strategyMain = new StrategyMain(dataType);
+            strategyMain.Transfer();
+
+
             IUnityContainer container = new UnityContainer();
-            container.RegisterType<IUnitOfWork, UnitOfWork>().RegisterType<AbstractHandler, CreateFirstObject>();
-           // int id = 0;
-            //ITransactionUnitOfWork writeUnitOfWork = container.Resolve<ITransactionUnitOfWork>();
-         
-            //    var student = writeUnitOfWork.CreateNew<Students>();
-            //    student.FirstName = "Aleks";
-            //    student.LastName = "Sergeev";
-            //    student.Age = 27;
-            //    writeUnitOfWork.Add(student);
-            //    writeUnitOfWork.Commit();
-                //id = student.Id;
-            
+            container.RegisterType<IUnitOfWork, UnitOfWork>();
             using (var unitOfWork = container.Resolve<IUnitOfWork>())
             {
-                var sales = unitOfWork.GetStudentRepository().GetAll();
+                var sales = unitOfWork.GetStudentRepository().GetAll().ToList();
+                for (int i = 0; i < sales.Count(); i++)
+                {
+                    Console.WriteLine(sales[i].FirstName, sales[i].Age);
+                }
 
             }
 

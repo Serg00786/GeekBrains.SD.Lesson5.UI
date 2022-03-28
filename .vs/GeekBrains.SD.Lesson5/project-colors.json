@@ -25,7 +25,12 @@
       "ProjectGuid": "e9442bd5-f760-4b98-b2c1-1903cb2f6caa",
       "DisplayName": "GeekBrains.SD.Lesson5.UI",
       "ColorIndex": 3
+    },
+    "91ba8e13-cf8f-415b-94e7-b30e4170ff95": {
+      "ProjectGuid": "91ba8e13-cf8f-415b-94e7-b30e4170ff95",
+      "DisplayName": "GeekBrains.SD.Lesson5.BL",
+      "ColorIndex": 4
     }
   },
-  "NextColorIndex": 4
+  "NextColorIndex": 5
 }

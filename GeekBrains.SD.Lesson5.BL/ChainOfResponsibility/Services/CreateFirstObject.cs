@@ -14,8 +14,7 @@ namespace GeekBrains.SD.Lesson5.BL.ChainOfResponsibility.Services
         public override void Handle()
         {
             IUnityContainer container = new UnityContainer();
-            container.RegisterType<IUnitOfWork, UnitOfWork>()
-            .RegisterType<ITransactionUnitOfWork, TransactionUnitOfWork>();
+            container.RegisterType<ITransactionUnitOfWork, TransactionUnitOfWork>();
             ITransactionUnitOfWork writeUnitOfWork = container.Resolve<ITransactionUnitOfWork>();
 
             var student = writeUnitOfWork.CreateNew<Students>();
