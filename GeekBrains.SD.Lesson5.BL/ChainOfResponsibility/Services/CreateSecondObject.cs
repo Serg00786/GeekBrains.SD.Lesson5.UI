@@ -11,13 +11,14 @@ namespace GeekBrains.SD.Lesson5.BL.ChainOfResponsibility.Services
 {
     public class CreateSecondObject : AbstractHandler
     {
+        private readonly ITransactionUnitOfWork writeUnitOfWork;
+
+        public CreateSecondObject(ITransactionUnitOfWork transactionUnitOfWork)
+        {
+            writeUnitOfWork = transactionUnitOfWork;
+        }
         public override void Handle()
         {
-            IUnityContainer container = new UnityContainer();
-            container.RegisterType<IUnitOfWork, UnitOfWork>()
-            .RegisterType<ITransactionUnitOfWork, TransactionUnitOfWork>();
-            ITransactionUnitOfWork writeUnitOfWork = container.Resolve<ITransactionUnitOfWork>();
-
             var student = writeUnitOfWork.CreateNew<Students>();
             student.FirstName = "Kaks";
             student.LastName = "Lee";

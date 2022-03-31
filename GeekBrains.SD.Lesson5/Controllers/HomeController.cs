@@ -16,23 +16,30 @@ using GeekBrains.SD.Lesson5.BL.ChainOfResponsibility.Abstract;
 using GeekBrains.SD.Lesson5.BL.Strategy.Interfaces;
 using GeekBrains.SD.Lesson5.BL.Strategy;
 using GeekBrains.SD.Lesson5.BL.ChainOfResponsibility;
+using GeekBrains.SD.Lesson5.UI.Models;
+using AutoMapper;
+using GeekBrains.SD.Lesson5.BL.Model;
 
 namespace GeekBrains.SD.Lesson5.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IStrategyMain _strategyMain;
+        private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IStrategyMain strategyMain, IMapper mapper)
         {
-            _logger = logger;
+            _strategyMain = strategyMain;
+            _mapper = mapper;
+
         }
 
-        public IActionResult Index()
+        public IActionResult Index(CreateModel cm)
         {
             IDataType dataType = new ConstantDataType();
-            IStrategyMain strategyMain = new StrategyMain(dataType);
-            strategyMain.Transfer();
+            var model = _mapper.Map<CreateModel_BL>(cm);
+            //_strategyMain.Transfer(model);
+            _strategyMain.Transfer();
 
 
             IUnityContainer container = new UnityContainer();
@@ -50,10 +57,31 @@ namespace GeekBrains.SD.Lesson5.Controllers
 
             return View();
         }
-    
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CreateModel cm)
+        {
+            try
+            {
+
+                return RedirectToAction("Index", cm);
+
+            }
+            catch
+            {
+                return View();
+            }
+
+        }
 
 
-        public IActionResult Privacy()
+
+            public IActionResult Privacy()
         {
             return View();
         }
